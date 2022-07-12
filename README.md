@@ -13,7 +13,7 @@ To start export proccess you shout run next command (**Note**: use `python3` if 
 ### Script Arguments
 
 - `--user-pool-id` [__Required__] - The user pool ID for the user pool on which the export should be performed
-- `--region-current-pool` [_Optional_] - The user pool region the user pool on which the export should be performed _Default_: `us-east-1`
 - `--user-new-pool-id` [__Required__] - The user pool ID for the user pool on which the import should be performed
-- `--region-new-pool` [_Optional_] - The user pool region the user pool on which the import should be performed _Default_: `us-east-1`
 - `-groups` [__Required__] - The group list on which the export/import should be performed
+- `--region-current-pool` [_Optional_] - The user pool region the user pool on which the export should be performed _Default_: `us-east-1`
+- `--region-new-pool` [_Optional_] - The user pool region the user pool on which the import should be performed _Default_: `us-east-1`
