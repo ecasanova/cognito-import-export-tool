@@ -8,10 +8,11 @@ from colorama import Fore
 
 REGION = ''
 USER_POOL_ID = ''
+USER_NEW_POOL_ID = ''
 LIMIT = 60
-MAX_NUMBER_RECORDS = 10000000
+MAX_NUMBER_RECORDS = 10000
 PROFILE = ''
-GROUP = ''
+GROUPS = []
 
 """ Parse All Provided Arguments """
 parser = argparse.ArgumentParser(description='Cognito User Pool export', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
