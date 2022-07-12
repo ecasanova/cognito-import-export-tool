@@ -91,15 +91,30 @@ while i < len(GROUPS):
     def createUser(cognito_idp_cliend, user):
         print(Fore.GREEN + "Creating user: " + user['Username'])
         attributes = filter(attributes_check, list(user["Attributes"]))
+        
+       
+
         try: 
-            return client_new.admin_create_user(
-                UserPoolId=USER_NEW_POOL_ID,
-                Username=getUser(user),
-                UserAttributes=list(attributes),
-                TemporaryPassword='Chang3me*',
-                ForceAliasCreation=False,
-                MessageAction='SUPPRESS',
-            )
+            if "MFAOptions" in user:
+                return client_new.admin_create_user(
+                    UserPoolId=USER_NEW_POOL_ID,
+                    Username=getUser(user),
+                    UserAttributes=list(attributes),
+                    MFAOptions=list(MFAOptions),
+                    TemporaryPassword='Chang3me*',
+                    ForceAliasCreation=True,
+                    MessageAction='SUPPRESS',
+                )
+            else:
+                return client_new.admin_create_user(
+                    UserPoolId=USER_NEW_POOL_ID,
+                    Username=getUser(user),
+                    UserAttributes=list(attributes),
+                    TemporaryPassword='Chang3me*',
+                    ForceAliasCreation=True,
+                    MessageAction='SUPPRESS',
+                )
+            
         except client_new.exceptions.ClientError as err:
             error_message = err.response["Error"]["Message"]
             print(Fore.RED + "Error occured")
