@@ -17,9 +17,9 @@ GROUP = ''
 """ Parse All Provided Arguments """
 parser = argparse.ArgumentParser(description='Cognito User Pool export', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--user-pool-id', type=str, help="The current pool ID", required=True)
-parser.add_argument('--region-current-pool', type=str, help="The current pool region", required=True)
+parser.add_argument('--region-current-pool', type=str, default="us-east-1", help="The current pool region", required=False)
 parser.add_argument('--user-new-pool-id', type=str, help="The new pool ID", required=True)
-parser.add_argument('--region-new-pool', type=str, help="The new pool region", required=True)
+parser.add_argument('--region-new-pool', type=str, default="us-east-1", help="The new pool region", required=False)
 parser.add_argument('-groups', '--export-groups', nargs='+', type=str, help="List of groups", required=True)
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
 parser.add_argument('--profile', type=str, default='', help="The aws profile")
