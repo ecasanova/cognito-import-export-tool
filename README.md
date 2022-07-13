@@ -19,3 +19,4 @@ To start export proccess you shout run next command (**Note**: use `python3` if 
 - `-groups` [__Required__] - The group list on which the export/import should be performed
 - `--region-current-pool` [_Optional_] - The user pool region the user pool on which the export should be performed _Default_: `us-east-1`
 - `--region-new-pool` [_Optional_] - The user pool region the user pool on which the import should be performed _Default_: `us-east-1`
+- `--profile` [_Optional_] - A named profile is a collection of settings and credentials that you can apply to a AWS CLI command
