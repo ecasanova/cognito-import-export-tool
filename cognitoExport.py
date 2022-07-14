@@ -20,7 +20,7 @@ parser.add_argument('--user-pool-id', type=str, help="The current pool ID", requ
 parser.add_argument('--region-current-pool', type=str, default="us-east-1", help="The current pool region", required=False)
 parser.add_argument('--user-new-pool-id', type=str, help="The new pool ID", required=True)
 parser.add_argument('--region-new-pool', type=str, default="us-east-1", help="The new pool region", required=False)
-parser.add_argument('-groups', '--export-groups', nargs='+', type=str, help="List of groups", required=True)
+parser.add_argument('--groups', nargs='+', type=str, help="List of groups", required=True)
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
 parser.add_argument('--profile-current-pool', type=str, default='default', help="The aws profile for the export", required=True)
 parser.add_argument('--profile-new-pool', type=str, default='default', help="The aws profile for the import", required=True)
@@ -40,8 +40,8 @@ if args.profile_current_pool:
     PROFILE_CURRENT = args.profile_current_pool    
 if args.profile_new_pool:
     PROFILE_NEW = args.profile_new_pool         
-if args.export_groups:
-    GROUPS = list(args.export_groups) 
+if args.groups:
+    GROUPS = list(args.groups) 
 
 
 session_current = boto3.Session(profile_name=PROFILE_CURRENT)
