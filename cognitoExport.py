@@ -48,7 +48,7 @@ session_current = boto3.Session(profile_name=PROFILE_CURRENT)
 client_current = session_current.client('cognito-idp', CURRENT_REGION)
 
 session_new = boto3.Session(profile_name=PROFILE_NEW)
-client_new = session_new .client('cognito-idp', CURRENT_REGION)
+client_new = session_new .client('cognito-idp', NEW_REGION)
 
 
 def datetimeconverter(o):
