@@ -6,6 +6,20 @@ In order to use this script you should have Python 2 or Python 3 installed on yo
 - Install AWS Cli [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html]
 - Setup AWS credentials [https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html]
 
+## AWS CLI Credentials (profile) example
+
+Use the file ~/.aws/credentials and add the differents profile credentials
+
+```
+[default]
+aws_access_key_id = XXXXX
+aws_secret_access_key = XXXXXXX
+
+[adk]
+aws_access_key_id = XXXXXXX
+aws_secret_access_key = XXXXXXXX
+```
+
 ## Run export
 
 To start export proccess you shout run next command (**Note**: use `python3` if you have Python 3 instaled)
