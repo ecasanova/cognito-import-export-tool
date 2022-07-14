@@ -20,9 +20,9 @@ aws_access_key_id = XXXXXXX
 aws_secret_access_key = XXXXXXXX
 ```
 
-## Run export
+## Run export / import
 
-To start export proccess you shout run next command (**Note**: use `python3` if you have Python 3 instaled)
+To start export / import proccess you shout run next command (**Note**: use `python3` if you have Python 3 instaled)
 
 - `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 --profile-current-pool xxxx --profile-new-pool xxxx -groups xxxxx`
 
