@@ -22,7 +22,8 @@ parser.add_argument('--user-new-pool-id', type=str, help="The new pool ID", requ
 parser.add_argument('--region-new-pool', type=str, default="us-east-1", help="The new pool region", required=False)
 parser.add_argument('-groups', '--export-groups', nargs='+', type=str, help="List of groups", required=True)
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
-parser.add_argument('--profile', type=str, default='', help="The aws profile")
+parser.add_argument('--profile-current-pool', type=str, default='default', help="The aws profile for the export", required=True)
+parser.add_argument('--profile-new-pool', type=str, default='default', help="The aws profile for the import", required=True)
 args = parser.parse_args()
 
 if args.user_pool_id:
@@ -35,18 +36,19 @@ if args.region_new_pool:
     NEW_REGION = args.region_new_pool
 if args.num_records:
     MAX_NUMBER_RECORDS = args.num_records   
-if args.profile:
-    PROFILE = args.profile            
+if args.profile_current_pool:
+    PROFILE_CURRENT = args.profile_current_pool    
+if args.profile_new_pool:
+    PROFILE_NEW = args.profile_new_pool         
 if args.export_groups:
     GROUPS = list(args.export_groups) 
 
-if PROFILE:
-    session = boto3.Session(profile_name=PROFILE)
-    client_current = session.client('cognito-idp', CURRENT_REGION)
-    client_new = session.client('cognito-idp', CURRENT_REGION)
-else:
-    client_current = boto3.client('cognito-idp', CURRENT_REGION)
-    client_new = boto3.client('cognito-idp', CURRENT_REGION)
+
+session_current = boto3.Session(profile_name=PROFILE_CURRENT)
+client_current = session_current.client('cognito-idp', CURRENT_REGION)
+
+session_new = boto3.Session(profile_name=PROFILE_NEW)
+client_new = session_new .client('cognito-idp', CURRENT_REGION)
 
 
 def datetimeconverter(o):

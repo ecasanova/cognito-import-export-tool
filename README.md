@@ -10,13 +10,14 @@ In order to use this script you should have Python 2 or Python 3 installed on yo
 
 To start export proccess you shout run next command (**Note**: use `python3` if you have Python 3 instaled)
 
-- `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 -groups TestGroup`
+- `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 --profile-current-pool xxxx --profile-new-pool xxxx -groups xxxxx`
 
 ### Script Arguments
 
 - `--user-pool-id` [__Required__] - The user pool ID for the user pool on which the export should be performed
 - `--user-new-pool-id` [__Required__] - The user pool ID for the user pool on which the import should be performed
 - `-groups` [__Required__] - The group list on which the export/import should be performed
+- `--profile-current-pool` [_Optional_] - A named profile is a collection of settings and credentials that you can apply to a AWS CLI command _Default_: `default`
+- `--profile-new-pool` [_Optional_] - A named profile is a collection of settings and credentials that you can apply to a AWS CLI command _Default_: `default`
 - `--region-current-pool` [_Optional_] - The user pool region the user pool on which the export should be performed _Default_: `us-east-1`
 - `--region-new-pool` [_Optional_] - The user pool region the user pool on which the import should be performed _Default_: `us-east-1`
-- `--profile` [_Optional_] - A named profile is a collection of settings and credentials that you can apply to a AWS CLI command
