@@ -6,9 +6,9 @@ In order to use this script you should have Python 2 or Python 3 installed on yo
 - Install AWS Cli [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html]
 - Setup AWS credentials [https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html]
 
-## AWS CLI Credentials (profile) example
+## AWS CLI Credentials example
 
-Use the file ~/.aws/credentials and add the differents profile credentials
+Edit this file: ~/.aws/credentials and add the different profile credentials
 
 ```
 [default]
