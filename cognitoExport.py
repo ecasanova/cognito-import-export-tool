@@ -45,16 +45,16 @@ def password_check(passwd):
         return val
 
 """ Parse All Provided Arguments """
-parser = argparse.ArgumentParser(description='Cognito User Pool export', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('--user-pool-id', type=str, help="The current pool ID", required=True)
-parser.add_argument('--region-current-pool', type=str, default="us-east-1", help="The current pool region", required=False)
-parser.add_argument('--user-new-pool-id', type=str, help="The new pool ID", required=True)
-parser.add_argument('--region-new-pool', type=str, default="us-east-1", help="The new pool region", required=False)
-parser.add_argument('--groups', nargs='+', type=str, help="List of groups", required=True)
+parser = argparse.ArgumentParser(description='Cognito User Pool export / import', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument('--user-pool-id', type=str, help="The current pool ID for perform the export", required=True)
+parser.add_argument('--region-current-pool', type=str, default="us-east-1", help="The current pool region for perform the export", required=False)
+parser.add_argument('--user-new-pool-id', type=str, help="The new pool ID for perform the import", required=True)
+parser.add_argument('--region-new-pool', type=str, default="us-east-1", help="The new pool region for perform the import", required=False)
+parser.add_argument('--groups', nargs='+', type=str, help="List of user groups", required=True)
+parser.add_argument('--profile-current-pool', type=str, default='default', help="The aws profile for perform the export", required=True)
+parser.add_argument('--profile-new-pool', type=str, default='default', help="The aws profile for perform the import", required=True)
+parser.add_argument('--new-password', default='Chang3me*', type=str, help="The new password for the users in the new pool", required=False)
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
-parser.add_argument('--profile-current-pool', type=str, default='default', help="The aws profile for the export", required=True)
-parser.add_argument('--profile-new-pool', type=str, default='default', help="The aws profile for the import", required=True)
-parser.add_argument('--new-password', default='Chang3me*', type=str, help="The password for users", required=False)
 
 args = parser.parse_args()
 
