@@ -53,7 +53,7 @@ parser.add_argument('--region-new-pool', type=str, default="us-east-1", help="Th
 parser.add_argument('--groups', nargs='+', type=str, help="List of user groups", required=True)
 parser.add_argument('--profile-current-pool', type=str, default='default', help="The aws profile for perform the export", required=False)
 parser.add_argument('--profile-new-pool', type=str, default='default', help="The aws profile for perform the import", required=False)
-parser.add_argument('--new-password', default='Chang3me*', type=str, help="The new password for the users in the new pool", required=False)
+parser.add_argument('--new-password', default='Ch@ng3me*', type=str, help="The new password for the users in the new pool", required=False)
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
 
 args = parser.parse_args()

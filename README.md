@@ -24,16 +24,16 @@ aws_secret_access_key = XXXXXXXX
 
 To start export / import proccess you shout run next command (**Note**: use `python3` if you have Python 3 instaled)
 
-- `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 --profile-current-pool xxxx --profile-new-pool xxxx --new-password xxxxxxx --groups xxxxx`
+- `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 --profile-current-pool xxxx --profile-new-pool xxxx --new-password xxxxxxx --groups Group1 Admins Group2 Group3`
 
 ### Script Arguments
 
 - `--user-pool-id` [__Required__] - The user pool ID for the user pool on which the export should be performed
 - `--user-new-pool-id` [__Required__] - The user pool ID for the user pool on which the import should be performed
-- `--groups` [__Required__] - The group list on which the export/import should be performed
+- `--groups` [__Required__] - The group list on which the export/import should be performed (names separated by spaces)
 - `--profile-current-pool` [_Optional_] - A named profile is a collection of settings and credentials that you can apply to a AWS CLI command _Default_: `default`
 - `--profile-new-pool` [_Optional_] - A named profile is a collection of settings and credentials that you can apply to a AWS CLI command _Default_: `default`
 - `--region-current-pool` [_Optional_] - The user pool region the user pool on which the export should be performed _Default_: `us-east-1`
 - `--region-new-pool` [_Optional_] - The user pool region the user pool on which the import should be performed _Default_: `us-east-1`
-- `--new-password` [_Optional_] - The new password for the users in the new pool _Default_: `Chang3me*`
+- `--new-password` [_Optional_] - The new password for the users in the new pool _Default_: `Ch@ng3me*`
 - `--num-records` [_Optional_] - Max Number of Cognito Records to be exported _Default_: `10000`
