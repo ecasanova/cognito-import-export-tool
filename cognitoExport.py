@@ -167,7 +167,7 @@ while i < len(GROUPS):
             print("Error Reason: " + error_message)
 
     def addUserToGroup(cognito_idp_cliend, user, group_name):
-        print(Fore.GREEN + "Assing user: " + user['Username'] + " to group: " + group_name)
+        print(Fore.GREEN + "Added " + user['Username'] + " to group: " + group_name)
         try:
             return client_new.admin_add_user_to_group(
                 UserPoolId= USER_NEW_POOL_ID,
