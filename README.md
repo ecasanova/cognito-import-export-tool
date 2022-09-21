@@ -37,3 +37,8 @@ To start export / import proccess you shout run next command (**Note**: use `pyt
 - `--region-new-pool` [_Optional_] - The user pool region the user pool on which the import should be performed _Default_: `us-east-1`
 - `--new-password` [_Optional_] - The new password for the users in the new pool _Default_: `Ch@ng3me*`
 - `--num-records` [_Optional_] - Max Number of Cognito Records to be exported _Default_: `10000`
+- `--db-host` [__Required__] - Database hostname
+- `--db-database` [__Required__] - Database name
+- `--db-user` [__Required__] - Database username
+- `--db-password` [__Required__] - Database password
+- `--db-port` [_Optional_]- Database port*Default*:`5432`

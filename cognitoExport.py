@@ -5,6 +5,7 @@ import time
 import sys
 import argparse
 from colorama import Fore
+import psycopg2
 
 REGION = ''
 USER_POOL_ID = ''
@@ -13,6 +14,12 @@ LIMIT = 60
 MAX_NUMBER_RECORDS = 10000
 PROFILE = ''
 GROUPS = []
+
+DB_HOST = ''
+DB_DATABASE = ''
+DB_USER = '' 
+DB_PASSWORD = ''
+NEW_USER = ''
 
 def password_check(passwd):
     SpecialSym =['$', '@', '#', '%']
@@ -55,6 +62,11 @@ parser.add_argument('--profile-current-pool', type=str, default='default', help=
 parser.add_argument('--profile-new-pool', type=str, default='default', help="The aws profile for perform the import", required=False)
 parser.add_argument('--new-password', default='Ch@ng3me*', type=str, help="The new password for the users in the new pool", required=False)
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
+parser.add_argument('--db-host', type=str, help="Database hostname", required=True)
+parser.add_argument('--db-database', type=str, help="Database name", required=True)
+parser.add_argument('--db-user', type=str, help="Database username", required=True)
+parser.add_argument('--db-password', type=str, help="Database password", required=True)
+parser.add_argument('--db-port', type=str, default="5432", help="Database port", required=False)
 
 args = parser.parse_args()
 
@@ -84,6 +96,21 @@ if args.groups:
 
 if args.new_password:
    NEW_PASSWORD = args.new_password
+
+if args.db_host:
+    DB_HOST = args.db_host
+
+if args.db_database:
+    DB_DATABASE = args.db_database
+
+if args.db_user:
+    DB_USER = args.db_user
+
+if args.db_password:
+    DB_PASSWORD = args.db_password
+
+if args.db_port:
+    DB_PORT = args.db_port
 
 if NEW_PASSWORD:
     if password_check(NEW_PASSWORD):
@@ -160,6 +187,7 @@ while i < len(GROUPS):
                     ForceAliasCreation=True,
                     MessageAction='SUPPRESS',
                 )
+
             
         except client_new.exceptions.ClientError as err:
             error_message = err.response["Error"]["Message"]
@@ -208,10 +236,19 @@ while i < len(GROUPS):
             pagination_token = None
 
         for user in user_records['Users']:
-            createUser(
+            NEW_USER = createUser(
                 cognito_idp_cliend =  client_new,
                 user = user
             )
+
+            if(NEW_USER):
+                conn = psycopg2.connect(host=DB_HOST, database=DB_DATABASE, user=DB_USER, password=DB_PASSWORD, port=DB_PORT)
+                cur = conn.cursor()
+                cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                conn.close()
+                print(Fore.GREEN + "Old Username "+user['Username'])
+                print(Fore.GREEN + "New Username  "+NEW_USER['User']['Username'])
 
             addUserToGroup(
                 cognito_idp_cliend = client_new, 
