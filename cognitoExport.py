@@ -247,7 +247,7 @@ while i < len(GROUPS):
                 cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
                 cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
                 cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-
+                cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
                 conn.close()
                 print(Fore.GREEN + "Old Username "+user['Username'])
                 print(Fore.GREEN + "New Username  "+NEW_USER['User']['Username'])
