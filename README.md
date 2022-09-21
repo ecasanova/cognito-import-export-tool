@@ -41,4 +41,4 @@ To start export / import proccess you shout run next command (**Note**: use `pyt
 - `--db-database` [__Required__] - Database name
 - `--db-user` [__Required__] - Database username
 - `--db-password` [__Required__] - Database password
-- `--db-port` [_Optional_]- Database port*Default*:`5432`
+- `--db-port` [_Optional_]- Database port _Default_:`5432`
