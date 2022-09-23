@@ -17,8 +17,9 @@ GROUPS = []
 
 DB_HOST = ''
 DB_DATABASE = ''
-DB_USER = '' 
+DB_USER = 'postgres' 
 DB_PASSWORD = ''
+DB_PORT = '5432'
 NEW_USER = ''
 
 def password_check(passwd):
@@ -64,7 +65,7 @@ parser.add_argument('--new-password', default='Ch@ng3me*', type=str, help="The n
 parser.add_argument('--num-records', type=int, help="Max Number of Cognito Records to be exported")
 parser.add_argument('--db-host', type=str, help="Database hostname", required=True)
 parser.add_argument('--db-database', type=str, help="Database name", required=True)
-parser.add_argument('--db-user', type=str, help="Database username", required=True)
+parser.add_argument('--db-user', type=str, default="postgres", help="Database username", required=False)
 parser.add_argument('--db-password', type=str, help="Database password", required=True)
 parser.add_argument('--db-port', type=str, default="5432", help="Database port", required=False)
 

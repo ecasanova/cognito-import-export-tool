@@ -24,7 +24,7 @@ aws_secret_access_key = XXXXXXXX
 
 To start export / import proccess you shout run next command (**Note**: use `python3` if you have Python 3 instaled)
 
-- `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 --profile-current-pool xxxx --profile-new-pool xxxx --new-password xxxxxxx --groups Group1 Admins Group2 Group3`
+- `$ python3 CognitoExport.py --user-pool-id 'us-east-2_XXXXXXX' --user-new-pool-id 'us-east-2_XXXXXXXX' --region-current-pool us-east-2 --region-new-pool us-east-2 --profile-current-pool xxxx --profile-new-pool xxxx --new-password xxxxxxx --groups Group1 Admins Group2 Group3 --db-host $DB_HOST --db-database $DB_NAME --db-user $DB_USER --db-password $DB_PASSWORD --db-port $DB_PORT`
 
 ### Script Arguments
 
@@ -39,6 +39,6 @@ To start export / import proccess you shout run next command (**Note**: use `pyt
 - `--num-records` [_Optional_] - Max Number of Cognito Records to be exported _Default_: `10000`
 - `--db-host` [__Required__] - Database hostname
 - `--db-database` [__Required__] - Database name
-- `--db-user` [__Required__] - Database username
+- `--db-user` [_Optional_] - Database username _Default_:`postgres`
 - `--db-password` [__Required__] - Database password
 - `--db-port` [_Optional_]- Database port _Default_:`5432`
