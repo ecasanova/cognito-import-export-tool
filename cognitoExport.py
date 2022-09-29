@@ -247,9 +247,17 @@ while i < len(GROUPS):
                     conn = psycopg2.connect(host=DB_HOST, database=DB_DATABASE, user=DB_USER, password=DB_PASSWORD, port=DB_PORT)
                     cur = conn.cursor()
                     cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    print(Fore.GREEN + cur.rowcount, " record(s) updated in Patients table")
+
                     cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    print(Fore.GREEN + cur.rowcount, " record(s) updated in StudyTeam table")
+                    
                     cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    print(Fore.GREEN + cur.rowcount, " record(s) updated in UserLoginHistory table")
+                    
                     cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    print(Fore.GREEN + cur.rowcount, " record(s) updated in Prescriptions table")
+                    
                     conn.close()
 
                     print(Fore.GREEN + "Old Username " + user['Username'])
