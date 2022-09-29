@@ -248,16 +248,16 @@ while i < len(GROUPS):
                     cur = conn.cursor()
                     cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
                     print(cur.rowcount, " record(s) updated in Patients table")
-
+                    conn.commit()
                     cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
                     print(cur.rowcount, " record(s) updated in StudyTeam table")
-                    
+                    conn.commit()
                     cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
                     print(cur.rowcount, " record(s) updated in UserLoginHistory table")
-                    
+                    conn.commit()
                     cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
                     print(cur.rowcount, " record(s) updated in Prescriptions table")
-                    
+                    conn.commit()
                     conn.close()
 
                     print(Fore.GREEN + "Old Username " + user['Username'])
