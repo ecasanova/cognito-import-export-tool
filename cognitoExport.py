@@ -243,15 +243,20 @@ while i < len(GROUPS):
             )
 
             if(NEW_USER):
-                conn = psycopg2.connect(host=DB_HOST, database=DB_DATABASE, user=DB_USER, password=DB_PASSWORD, port=DB_PORT)
-                cur = conn.cursor()
-                cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                conn.close()
-                print(Fore.GREEN + "Old Username "+user['Username'])
-                print(Fore.GREEN + "New Username  "+NEW_USER['User']['Username'])
+                try:
+                    conn = psycopg2.connect(host=DB_HOST, database=DB_DATABASE, user=DB_USER, password=DB_PASSWORD, port=DB_PORT)
+                    cur = conn.cursor()
+                    cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                    cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                    cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                    cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                    conn.close()
+
+                    print(Fore.GREEN + "Old Username "+user['Username'])
+                    print(Fore.GREEN + "New Username  "+NEW_USER['User']['Username'])
+
+                except Exception as error:
+                    print (Fore.RED +"Oops! An exception has occured:", error)
 
             addUserToGroup(
                 cognito_idp_cliend = client_new, 
