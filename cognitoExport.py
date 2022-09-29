@@ -223,7 +223,7 @@ while i < len(GROUPS):
             #status = err.response["ResponseMetadata"]["HTTPStatusCode"]
             error_message = err.response["Error"]["Message"]
             print(Fore.RED + "Please Check your Cognito User Pool configs")
-            print("Error Reason: " + error_message)
+            print(Fore.RED + "Error Reason: " + error_message)
             exit()
         except:
             print(Fore.RED + "Something else went wrong:")
@@ -246,17 +246,17 @@ while i < len(GROUPS):
                 try:
                     conn = psycopg2.connect(host=DB_HOST, database=DB_DATABASE, user=DB_USER, password=DB_PASSWORD, port=DB_PORT)
                     cur = conn.cursor()
-                    cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                    cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                    cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
-                    cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'],user['Username']))
+                    cur.execute("UPDATE public.\"Patients\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    cur.execute("UPDATE public.\"StudyTeam\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    cur.execute("UPDATE public.\"UserLoginHistory\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
+                    cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
                     conn.close()
 
-                    print(Fore.GREEN + "Old Username "+user['Username'])
-                    print(Fore.GREEN + "New Username  "+NEW_USER['User']['Username'])
+                    print(Fore.GREEN + "Old Username " + user['Username'])
+                    print(Fore.GREEN + "New Username " + NEW_USER['User']['Username'])
 
                 except Exception as error:
-                    print (Fore.RED +"Oops! An exception has occured:", error)
+                    print (Fore.RED + "Oops! An exception has occured:", error)
 
             addUserToGroup(
                 cognito_idp_cliend = client_new, 
