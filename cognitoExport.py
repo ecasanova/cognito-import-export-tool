@@ -6,6 +6,8 @@ import sys
 import argparse
 from colorama import Fore
 import psycopg2
+from datetime import datetime as dt
+
 
 REGION = ''
 USER_POOL_ID = ''
@@ -270,6 +272,8 @@ while i < len(GROUPS):
                     conn.commit()
                     cur.execute("UPDATE public.\"Prescriptions\" SET \"Username\"=%s WHERE \"Username\"=%s", (NEW_USER['User']['Username'], user['Username']))
                     print(cur.rowcount, " record(s) updated in Prescriptions table")
+                    conn.commit()
+                    cur.execute("UPDATE public.\"StudyTeam\" SET \"PasswordUpdatedAt\"=%s WHERE \"Username\"=%s", (dt.now(), NEW_USER['User']['Username']))
                     conn.commit()
                     conn.close()
 
