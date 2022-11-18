@@ -174,14 +174,14 @@ while i < len(GROUPS):
                     UserPoolId=USER_NEW_POOL_ID,
                     Username=getUser(user),
                     UserAttributes=list(attributes),
-                    MFAOptions=list(MFAOptions),
+                    MFAOptions=list(user['MFAOptions']),
                     TemporaryPassword=NEW_PASSWORD,
                     ForceAliasCreation=True,
                     MessageAction='SUPPRESS',
                 )
-                client.new.admin_set_user_password(
+                client_new.admin_set_user_password(
                     UserPoolId=USER_NEW_POOL_ID,
-                    Username=getUser(user),
+                    Username=newUser['Username'],
                     Password=NEW_PASSWORD,
                     Permanent=True,
                 )
@@ -197,7 +197,7 @@ while i < len(GROUPS):
                 )
                 client_new.admin_set_user_password(
                     UserPoolId=USER_NEW_POOL_ID,
-                    Username=getUser(user),
+                    Username=newUser['Username'],
                     Password=NEW_PASSWORD,
                     Permanent=True,
                 )
