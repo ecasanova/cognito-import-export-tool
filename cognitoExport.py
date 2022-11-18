@@ -17,7 +17,7 @@ GROUPS = []
 
 DB_HOST = ''
 DB_DATABASE = ''
-DB_USER = 'postgres' 
+DB_USER = 'postgres'
 DB_PASSWORD = ''
 DB_PORT = '5432'
 NEW_USER = ''
@@ -25,27 +25,27 @@ NEW_USER = ''
 def password_check(passwd):
     SpecialSym =['$', '@', '#', '%']
     val = True
-      
+
     if len(passwd) < 6:
         print(Fore.RED + 'Password length should be at least 6')
         val = False
-          
+
     if len(passwd) > 20:
         print(Fore.RED + 'Password length should be not be greater than 8')
         val = False
-          
+
     if not any(char.isdigit() for char in passwd):
         print(Fore.RED + 'Password should have at least one numeral')
         val = False
-          
+
     if not any(char.isupper() for char in passwd):
         print(Fore.RED + 'Password should have at least one uppercase letter')
         val = False
-          
+
     if not any(char.islower() for char in passwd):
         print(Fore.RED + 'Password should have at least one lowercase letter')
         val = False
-          
+
     if not any(char in SpecialSym for char in passwd):
         print(Fore.RED + 'Password should have at least one of the symbols $@#')
         val = False
@@ -84,16 +84,16 @@ if args.region_new_pool:
     NEW_REGION = args.region_new_pool
 
 if args.num_records:
-    MAX_NUMBER_RECORDS = args.num_records  
+    MAX_NUMBER_RECORDS = args.num_records
 
 if args.profile_current_pool:
-    PROFILE_CURRENT = args.profile_current_pool    
+    PROFILE_CURRENT = args.profile_current_pool
 
 if args.profile_new_pool:
-    PROFILE_NEW = args.profile_new_pool   
+    PROFILE_NEW = args.profile_new_pool
 
 if args.groups:
-    GROUPS = list(args.groups) 
+    GROUPS = list(args.groups)
 
 if args.new_password:
    NEW_PASSWORD = args.new_password
@@ -142,14 +142,14 @@ while i < len(GROUPS):
             if attr['Name'] == 'phone_number':
                 user_record['phone_number'] = attr['Value']
             usernames.append (user_record)
-        
+
         if user_record['email'] is not None:
             return user_record['email']
-        
+
         if user_record['phone_number'] is not None:
             return user_record['phone_number']
-            
-    def importUsers(cognito_idp_cliend, next_pagination_token ='', Limit = LIMIT):  
+
+    def importUsers(cognito_idp_cliend, next_pagination_token ='', Limit = LIMIT):
         return client_current.list_users_in_group(
             UserPoolId = USER_POOL_ID,
             GroupName = GROUPS[i],
@@ -159,18 +159,18 @@ while i < len(GROUPS):
             UserPoolId = USER_POOL_ID,
             GroupName = GROUPS[i],
             Limit = Limit
-        ) 
+        )
 
     def attributes_check(attributes : list):
         return attributes["Name"] != "sub"
 
     def createUser(cognito_idp_cliend, user):
         print(Fore.GREEN + "Creating user: " + user['Username'])
-        attributes = filter(attributes_check, list(user["Attributes"]))  
+        attributes = filter(attributes_check, list(user["Attributes"]))
 
-        try: 
+        try:
             if "MFAOptions" in user:
-                return client_new.admin_create_user(
+                newUser: client_new.admin_create_user(
                     UserPoolId=USER_NEW_POOL_ID,
                     Username=getUser(user),
                     UserAttributes=list(attributes),
@@ -179,8 +179,15 @@ while i < len(GROUPS):
                     ForceAliasCreation=True,
                     MessageAction='SUPPRESS',
                 )
+                client.new.admin_set_user_password(
+                    UserPoolId=USER_NEW_POOL_ID,
+                    Username=getUser(user),
+                    Password=NEW_PASSWORD,
+                    Permanent=True,
+                )
+                return newUser
             else:
-                return client_new.admin_create_user(
+                newUser: client_new.admin_create_user(
                     UserPoolId=USER_NEW_POOL_ID,
                     Username=getUser(user),
                     UserAttributes=list(attributes),
@@ -188,8 +195,14 @@ while i < len(GROUPS):
                     ForceAliasCreation=True,
                     MessageAction='SUPPRESS',
                 )
+                client_new.admin_set_user_password(
+                    UserPoolId=USER_NEW_POOL_ID,
+                    Username=getUser(user),
+                    Password=NEW_PASSWORD,
+                    Permanent=True,
+                )
+                return newUser
 
-            
         except client_new.exceptions.ClientError as err:
             error_message = err.response["Error"]["Message"]
             print(Fore.RED + "Error occured")
@@ -211,7 +224,7 @@ while i < len(GROUPS):
     pagination_counter = 0
     exported_records_counter = 0
     pagination_token = ""
-   
+
     while pagination_token is not None:
         try:
             user_records = importUsers(
@@ -228,7 +241,7 @@ while i < len(GROUPS):
         except:
             print(Fore.RED + "Something else went wrong:")
             print(Fore.RED + err.response["Error"]["Message"])
-            exit()     
+            exit()
 
         """ Check if there next paginatioon is exist """
         if set(["PaginationToken","NextToken"]).intersection(set(user_records)):
@@ -267,22 +280,22 @@ while i < len(GROUPS):
                     print (Fore.RED + "Oops! An exception has occured:", error)
 
             addUserToGroup(
-                cognito_idp_cliend = client_new, 
-                user = user, 
+                cognito_idp_cliend = client_new,
+                user = user,
                 group_name = GROUPS[i]
             )
 
             exported_records_counter +=  1
-           
+
         """ Display Proccess Infor """
         pagination_counter += 1
         print(Fore.YELLOW + 'Total '+ GROUPS[i] +' Exported Records: ' + str(exported_records_counter))
 
         if MAX_NUMBER_RECORDS and exported_records_counter >= MAX_NUMBER_RECORDS:
             print(Fore.GREEN + "INFO: Max Number of Exported  "+GROUPS[i]+" Reached")
-            break    
+            break
 
         """ Cool Down before next batch of Cognito Users """
         time.sleep(0.15)
-   
-    i = i + 1;   
+
+    i = i + 1;
