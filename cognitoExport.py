@@ -170,7 +170,7 @@ while i < len(GROUPS):
 
         try:
             if "MFAOptions" in user:
-                newUser: client_new.admin_create_user(
+                newUser = client_new.admin_create_user(
                     UserPoolId=USER_NEW_POOL_ID,
                     Username=getUser(user),
                     UserAttributes=list(attributes),
@@ -187,7 +187,7 @@ while i < len(GROUPS):
                 )
                 return newUser
             else:
-                newUser: client_new.admin_create_user(
+                newUser = client_new.admin_create_user(
                     UserPoolId=USER_NEW_POOL_ID,
                     Username=getUser(user),
                     UserAttributes=list(attributes),
