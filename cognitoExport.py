@@ -181,7 +181,7 @@ while i < len(GROUPS):
                 )
                 client_new.admin_set_user_password(
                     UserPoolId=USER_NEW_POOL_ID,
-                    Username=newUser['Username'],
+                    Username=newUser['User']['Username'],
                     Password=NEW_PASSWORD,
                     Permanent=True,
                 )
@@ -197,7 +197,7 @@ while i < len(GROUPS):
                 )
                 client_new.admin_set_user_password(
                     UserPoolId=USER_NEW_POOL_ID,
-                    Username=newUser['Username'],
+                    Username=newUser['User']['Username'],
                     Password=NEW_PASSWORD,
                     Permanent=True,
                 )
