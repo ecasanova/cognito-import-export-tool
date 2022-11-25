@@ -1,3 +1,7 @@
+# Cognito migration user pools tool
+
+Use this script to migrate from an cognito user pool to another one
+
 ## Installation
 
 In order to use this script you should have Python 2 or Python 3 installed on your platform
